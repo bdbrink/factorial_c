@@ -1,6 +1,5 @@
 #include <iostream>
 
-// Function to calculate factorial using recursion
 unsigned long long factorial(int n) {
     if (n == 0 || n == 1) {
         return 1;
