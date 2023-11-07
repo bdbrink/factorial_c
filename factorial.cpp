@@ -1,25 +1,32 @@
 #include <iostream>
 
 unsigned long long factorial(int n) {
-    if (n == 0 || n == 1) {
-        return 1;
-    } else {
-        return n * factorial(n - 1);
+    unsigned long long result = 1;
+    for (int i = 1; i <= n; ++i) {
+        result *= i;
     }
+    return result;
+}
+
+int getInput() {
+    int number;
+    while (true) {
+        std::cout << "Enter a non-negative integer: ";
+        std::cin >> number;
+        if (std::cin.fail() || number < 0) {
+            std::cin.clear(); // clear the error flag
+            std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n'); // discard invalid input
+            std::cout << "Invalid input. Please try again." << std::endl;
+        } else {
+            break;
+        }
+    }
+    return number;
 }
 
 int main() {
-    int number;
-    
-    std::cout << "Enter a positive integer: ";
-    std::cin >> number;
-
-    if (number < 0) {
-        std::cout << "Factorial is not defined for negative numbers." << std::endl;
-    } else {
-        unsigned long long result = factorial(number);
-        std::cout << "Factorial of " << number << " is: " << result << std::endl;
-    }
-
+    int number = getInput();
+    unsigned long long result = factorial(number);
+    std::cout << "Factorial of " << number << " is: " << result << std::endl;
     return 0;
 }
