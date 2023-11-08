@@ -1,7 +1,7 @@
 #include <iostream>
 #include <chrono>
 
-unsigned long long factorial(int n) {
+unsigned long long factorialIterative(int n) {
     unsigned long long result = 1;
     for (int i = 1; i <= n; ++i) {
         result *= i;
@@ -9,29 +9,43 @@ unsigned long long factorial(int n) {
     return result;
 }
 
-int getInput() {
-    int number;
-    while (true) {
-        std::cout << "Enter a non-negative integer: ";
-        std::cin >> number;
-        if (std::cin.fail() || number < 0) {
-            std::cin.clear(); // clear the error flag
-            std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n'); // discard invalid input
-            std::cout << "Invalid input. Please try again." << std::endl;
-        } else {
-            break;
-        }
+unsigned long long factorialRecursive(int n) {
+    if (n == 0 || n == 1) {
+        return 1;
+    } else {
+        return n * factorialRecursive(n - 1);
     }
-    return number;
+}
+
+int getInput() {
+    int choice;
+    std::cout << "Choose a method for factorial calculation:" << std::endl;
+    std::cout << "1. Iterative method" << std::endl;
+    std::cout << "2. Recursive method" << std::endl;
+    std::cin >> choice;
+    return choice;
 }
 
 int main() {
-    int number = getInput();
+    int number;
+    int choice = getInput();
 
-    auto start = std::chrono::high_resolution_clock::now(); // Start the timer
-    unsigned long long result = factorial(number);
-    auto stop = std::chrono::high_resolution_clock::now(); // Stop the timer
+    std::cout << "Enter a non-negative integer: ";
+    std::cin >> number;
 
+    auto start = std::chrono::high_resolution_clock::now();
+
+    unsigned long long result;
+    if (choice == 1) {
+        result = factorialIterative(number);
+    } else if (choice == 2) {
+        result = factorialRecursive(number);
+    } else {
+        std::cout << "Invalid choice. Please run the program again and choose a valid option." << std::endl;
+        return 1;
+    }
+
+    auto stop = std::chrono::high_resolution_clock::now();
     auto duration = std::chrono::duration_cast<std::chrono::microseconds>(stop - start);
 
     std::cout << "Factorial of " << number << " is: " << result << std::endl;
