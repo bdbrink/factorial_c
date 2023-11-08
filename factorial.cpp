@@ -1,6 +1,7 @@
 #include <iostream>
 #include <chrono>
 
+// better with memory
 unsigned long long factorialIterative(int n) {
     unsigned long long result = 1;
     for (int i = 1; i <= n; ++i) {
@@ -9,6 +10,7 @@ unsigned long long factorialIterative(int n) {
     return result;
 }
 
+// more readable
 unsigned long long factorialRecursive(int n) {
     if (n == 0 || n == 1) {
         return 1;
